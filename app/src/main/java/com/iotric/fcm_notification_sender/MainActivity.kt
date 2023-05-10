@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.iotric.fcm_notification_sender.models.Android
 import com.iotric.fcm_notification_sender.models.Notification
 import com.iotric.fcm_notification_sender.models.PushNotificationRequestModel
 import com.iotric.fcm_notification_sender.models.response.PushNotificationResponseModel
@@ -54,6 +55,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun areFieldsValid(): Boolean {
+
+
+
         if(etServerKey.text.isNullOrEmpty()) {
             Toast.makeText(this, "Please enter server key", Toast.LENGTH_LONG).show()
             return false
@@ -84,10 +88,12 @@ class MainActivity : AppCompatActivity() {
     private fun sendPushNotificationToTopic(topicOrDeviceTokenName: String) {
         val serverKey = "key=${etServerKey.text?.toString()?.replace("key=", "")}"
         val to = if(notificationType == NotificationType.TOPIC) "/topics/$topicOrDeviceTokenName" else "$topicOrDeviceTokenName"
+        val android = Android(priority = "high")
         val notification = Notification(body = etNotificationMessage.text.toString(), title = etNotificationTitle.text.toString())
         val pushNotificationRequestModel = PushNotificationRequestModel(
             to = to,
-            notification = notification
+            notification = notification,
+            android = android
         )
 
         RestClient.apiInterface.sendPush(
