@@ -3,7 +3,7 @@
 This android project can be used to test FCM integration. You can send push notifications to your apps using FCM on android/iOS. 
 ======
 
-###How to use?
+### How to use?
 
 1. Insert your server key
 2. Insert notification title
